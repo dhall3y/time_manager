@@ -29,7 +29,7 @@
 **Get specific working time**
 ```http://localhost:4000/api/workingtimes/:userID/:id```
 
-**Create working times **
+**Create working times**
 ```http://localhost:4000/api/workingtimes/:userID```
 ```
 {
