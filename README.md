@@ -4,10 +4,10 @@
 **Get user by username and email**\
 ```http://localhost:4000/api/users?username=XXX&email=YYY```
 
-**Get user**
+**Get user**\
  ```http://localhost:4000/api/users/:userID```
  
-**Create user**
+**Create user**\
 ```http://localhost:4000/api/users```
 ```
 {
@@ -17,19 +17,19 @@
   }
 }
 ```
-**Update user**
+**Update user**\
 ```http://localhost:4000/api/users/:userID```
 
-**Delete user**
+**Delete user**\
 ```http://localhost:4000/api/users/:userID```
 ## WORKING TIME
-**Get working times between start and end**
+**Get working times between start and end**\
 ```http://localhost:4000/api/workingtimes/1?start=XXX&end=YYY```
 
-**Get specific working time**
+**Get specific working time**\
 ```http://localhost:4000/api/workingtimes/:userID/:id```
 
-**Create working times**
+**Create working times**\
 ```http://localhost:4000/api/workingtimes/:userID```
 ```
 {
@@ -39,7 +39,7 @@
     }
 }
 ```
-**Update working time**
+**Update working time**\
 
 ```http://localhost:4000/api/workingtimes/:id```
 ```
@@ -50,12 +50,12 @@
     }
 }
 ```
-**Delete working time**
+**Delete working time**\
 ```http://localhost:4000/api/workingtimes/:id```
 ## CLOCK
-**Get clock**
+**Get clock**\
 ```http://localhost:4000/api/clocks/:userID```
-**Create clock**
+**Create clock**\
 ```http://localhost:4000/api/clocks/:userID```
 ```
 {
