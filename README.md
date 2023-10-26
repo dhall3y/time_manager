@@ -1,7 +1,7 @@
 # TimeManager
 
 ## USER
-**Get user by username and email**
+**Get user by username and email**\
 ```http://localhost:4000/api/users?username=XXX&email=YYY```
 
 **Get user**
