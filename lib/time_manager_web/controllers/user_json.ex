@@ -4,9 +4,9 @@ defmodule TimeManagerWeb.UserJSON do
   @doc """
   Renders a list of users.
   """
-  #  def index(%{users: users}) do
-  #  %{data: for(user <- users, do: data(user))}
-  #end
+  def index(%{users: users}) do
+    %{data: for(user <- users, do: data(user))}
+  end
 
   def index(%{user: user}) do
     %{data: data(user)}

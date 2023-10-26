@@ -1,11 +1,11 @@
 # TimeManager
 
 ## USER
+**Get all users**\
+ `http://localhost:4000/api/users`
+
 **Get user by username and email**\
 `http://localhost:4000/api/users?username=XXX&email=YYY`
-
-**Get user**\
- `http://localhost:4000/api/users/:userID`
  
 **Create user**\
 `http://localhost:4000/api/users`
