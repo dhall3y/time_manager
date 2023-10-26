@@ -40,7 +40,6 @@
 }
 ```
 **Update working time**\
-
 ```http://localhost:4000/api/workingtimes/:id```
 ```
 {
