@@ -22,6 +22,11 @@ config :time_manager, TimeManagerWeb.Endpoint,
   pubsub_server: TimeManager.PubSub,
   live_view: [signing_salt: "mSWfEnTx"]
 
+config :cors_plug,
+  origin: ["*"],
+  max_age: 86400,
+  methods: ["GET", "POST"]
+
 # Configures the mailer
 #
 # By default it uses the "Local" adapter which stores the emails
