@@ -1,0 +1,37 @@
+version: '3'
+
+services:
+  # Backend service
+  back:
+    build:
+      context: ./time_manager
+    env_file:
+      - .env
+    ports:
+      - "4000:4000"
+    depends_on:
+      - db
+    command: /bin/sh -c "mix ecto.migrate && mix phx.server"
+
+
+  # Frontend service
+  front:
+    build:
+      context: ./time_manager_app
+    ports:
+      - "8080:8080"
+
+  # Database service
+  db:
+    image: postgres:latest
+    environment:
+      POSTGRES_USER: ${PGUSER}
+      POSTGRES_PASSWORD: ${PGPASSWORD}
+      POSTGRES_DB: ${PGDATABASE}
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data:
