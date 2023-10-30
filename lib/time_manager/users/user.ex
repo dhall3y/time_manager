@@ -5,6 +5,7 @@ defmodule TimeManager.Users.User do
   schema "users" do
     field :username, :string
     field :email, :string
+    field :password, :string
 
     timestamps(type: :utc_datetime)
   end
@@ -12,10 +13,18 @@ defmodule TimeManager.Users.User do
   @doc false
   def changeset(user, attrs) do
     user
-    |> cast(attrs, [:username, :email])
-    |> validate_required([:username, :email])
+    |> cast(attrs, [:username, :email, :password])
+    |> validate_required([:username, :email, :password])
     |> unique_constraint(:email)
     |> unique_constraint(:username)
     |> validate_format(:email, ~r/^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}$/) 
+    |> put_password_hash()
   end
+
+  #check if changeset is valid
+  defp put_password_hash(%Ecto.Changeset{valid?: true, changes: %{ password: password }} = changeset) do
+    change(changeset, password: Bcrypt.hash_pwd_salt(password))
+  end
+
+  defp put_password_hash(changeset), do: changeset
 end
