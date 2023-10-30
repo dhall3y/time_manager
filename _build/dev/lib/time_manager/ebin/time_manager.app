@@ -2,7 +2,6 @@
     [{compile_env,
          [{time_manager,['Elixir.TimeManagerWeb.Gettext'],error},
           {time_manager,[dev_routes],{ok,true}}]},
-     {optional_applications,[]},
      {applications,
          [kernel,stdlib,elixir,logger,runtime_tools,phoenix,phoenix_ecto,
           ecto_sql,postgrex,phoenix_live_dashboard,swoosh,finch,

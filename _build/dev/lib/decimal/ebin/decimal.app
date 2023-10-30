@@ -1,6 +1,5 @@
 {application,decimal,
-             [{optional_applications,[]},
-              {applications,[kernel,stdlib,elixir]},
+             [{applications,[kernel,stdlib,elixir]},
               {description,"Arbitrary precision decimal arithmetic."},
               {modules,['Elixir.Decimal','Elixir.Decimal.Context',
                         'Elixir.Decimal.Error','Elixir.Decimal.Macros',

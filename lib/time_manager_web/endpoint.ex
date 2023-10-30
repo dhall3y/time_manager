@@ -44,7 +44,7 @@ defmodule TimeManagerWeb.Endpoint do
 
   plug Plug.MethodOverride
   plug Plug.Head
-  plug Plug.Session, @session_options
+  plug Plug.Session, @session_oevptions
   plug TimeManagerWeb.Router
   plug CORSPlug
 end

@@ -1,6 +1,5 @@
 {application,nimble_pool,
-             [{optional_applications,[]},
-              {applications,[kernel,stdlib,elixir,logger]},
+             [{applications,[kernel,stdlib,elixir,logger]},
               {description,"A tiny resource-pool implementation"},
               {modules,['Elixir.NimblePool','Elixir.NimblePool.Application']},
               {registered,[]},

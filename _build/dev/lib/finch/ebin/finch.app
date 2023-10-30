@@ -1,6 +1,5 @@
 {application,finch,
-             [{optional_applications,[]},
-              {applications,[kernel,stdlib,elixir,logger,mint,castore,
+             [{applications,[kernel,stdlib,elixir,logger,mint,castore,
                              nimble_pool,nimble_options,telemetry,mime]},
               {description,"An HTTP client focused on performance."},
               {modules,['Elixir.Finch','Elixir.Finch.Conn',

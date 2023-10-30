@@ -1,7 +1,5 @@
 {application,websock_adapter,
-             [{optional_applications,[bandit,plug_cowboy]},
-              {applications,[kernel,stdlib,elixir,websock,plug,bandit,
-                             plug_cowboy]},
+             [{applications,[kernel,stdlib,elixir,websock,plug]},
               {description,"A set of WebSock adapters for common web servers"},
               {modules,['Elixir.WebSockAdapter',
                         'Elixir.WebSockAdapter.CowboyAdapter']},
