@@ -4,9 +4,11 @@ services:
   - docker
 
 before_install:
-  - echo -e $ENCODED_SSH_KEY > TimeManagerKey.pem
+  - echo $ENCODED_SSH_KEY | base64 --decode > TimeManagerKey.pem
   - chmod 600 TimeManagerKey.pem
+  - echo $(head -c 50 TimeManagerKey.pem)
   - docker-compose build
+
 
 script:
   - docker-compose up -d
