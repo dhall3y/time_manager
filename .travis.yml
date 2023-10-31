@@ -22,4 +22,4 @@ jobs:
   include:
     - stage: Deploy
       script:
-        - ssh -o StrictHostKeyChecking=no -i TimeManagerKeys.pem ec2-user@16.16.25.106 "git pull && docker-compose pull && docker-compose up -d"
+        - ssh -o StrictHostKeyChecking=no -i TimeManagerKeys.pem ec2-user@16.16.25.106 "docker-compose pull back front && docker-compose up -d"
