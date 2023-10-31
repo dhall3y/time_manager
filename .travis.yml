@@ -4,6 +4,8 @@ services:
   - docker
 
 before_install:
+  - echo -e $ENCODED_SSH_KEY > TimeManagerKey.pem
+  - chmod 600 TimeManagerKey.pem
   - docker-compose build
 
 script:
@@ -11,7 +13,6 @@ script:
 
 after_success:
   - echo "$DOCKER_ACCESS_TOKEN" | docker login -u webdesignpastor --password-stdin
-
   - docker-compose push back
   - docker-compose push front
 
@@ -19,4 +20,4 @@ jobs:
   include:
     - stage: Deploy
       script:
-        - ssh -o StrictHostKeyChecking=no ubuntu@your_aws_instance_ip "git pull && docker-compose pull && docker-compose up -d"
+        - ssh -o StrictHostKeyChecking=no -i TimeManagerKey.pem ubuntu@16.16.25.106 "git pull && docker-compose pull && docker-compose up -d"
