@@ -3,6 +3,7 @@ version: '3'
 services:
   # Backend service
   back:
+    image: webdesignpastor/time_manager_back
     build:
       context: ./time_manager
     env_file:
@@ -13,9 +14,9 @@ services:
       - db
     command: /bin/sh -c "mix ecto.migrate && mix phx.server"
 
-
   # Frontend service
   front:
+    image: webdesignpastor/time_manager_front
     build:
       context: ./time_manager_app
     ports:
