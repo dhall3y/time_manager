@@ -9,7 +9,6 @@ before_install:
   - echo $(head -c 50 TimeManagerKeys.pem)
   - docker-compose build
 
-
 script:
   - docker-compose up -d
 
@@ -22,4 +21,5 @@ jobs:
   include:
     - stage: Deploy
       script:
-        - ssh -o StrictHostKeyChecking=no -i TimeManagerKeys.pem ec2-user@16.16.25.106 "docker-compose pull back front && docker-compose up -d"
+        - scp -o StrictHostKeyChecking=no -i TimeManagerKeys.pem ./docker-compose.yml ec2-user@16.16.25.106:/home/ec2-user/
+        - ssh -o StrictHostKeyChecking=no -i TimeManagerKeys.pem ec2-user@16.16.25.106 "cd /home/ec2-user && docker-compose pull back front && docker-compose up -d"
