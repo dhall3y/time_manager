@@ -9,6 +9,9 @@ defmodule TimeManagerWeb.Router do
     pipe_through :api
 
     resources "/users", UserController, param: "userID", except: [:new, :edit]
+    post "/users/sign_up", AuthController, :sign_up
+    post "/users/sign_in", AuthController, :sign_in
+    post "/users/sign_out", AuthController, :sign_out 
   
     #post "/workingtimes/:userID", WorkingTimeController, :create
     resources "/workingtimes/:userID", WorkingTimeController, only: [:index, :create, :show]

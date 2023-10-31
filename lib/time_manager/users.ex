@@ -35,7 +35,17 @@ defmodule TimeManager.Users do
       ** (Ecto.NoResultsError)
 
   """
+
   def get_user!(id), do: Repo.get!(User, id)
+
+  @doc """
+    get user by email
+  """
+  def get_by_email(email) do
+    User
+    |> where(email: ^email)
+    |> Repo.one()
+  end
 
   @doc """
   Creates a user.
