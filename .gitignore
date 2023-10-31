@@ -28,3 +28,4 @@ time_manager-*.tar
 .DS_Store
 .AppleDouble
 .LSOverride
+.env*
