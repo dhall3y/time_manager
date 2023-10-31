@@ -6,7 +6,6 @@ services:
 before_install:
   - echo $ENCODED_SSH_KEY | base64 --decode > TimeManagerKeys.pem
   - chmod 600 TimeManagerKeys.pem
-  - echo $(head -c 50 TimeManagerKeys.pem)
   - docker-compose build
 
 script:
@@ -22,4 +21,5 @@ jobs:
     - stage: Deploy
       script:
         - scp -o StrictHostKeyChecking=no -i TimeManagerKeys.pem ./docker-compose.yml ec2-user@16.16.25.106:/home/ec2-user/
+        - scp -o StrictHostKeyChecking=no -i TimeManagerKeys.pem ./.env ec2-user@16.16.25.106:/home/ec2-user/
         - ssh -o StrictHostKeyChecking=no -i TimeManagerKeys.pem ec2-user@16.16.25.106 "cd /home/ec2-user && docker-compose pull back front && docker-compose up -d"
