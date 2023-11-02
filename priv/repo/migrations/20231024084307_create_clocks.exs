@@ -10,6 +10,6 @@ defmodule TimeManager.Repo.Migrations.CreateClocks do
       timestamps(type: :utc_datetime)
     end
 
-    create index(:clocks, [:user_id])
+    create unique_index(:clocks, [:user_id])
   end
 end

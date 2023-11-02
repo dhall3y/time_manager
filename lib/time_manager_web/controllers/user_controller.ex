@@ -19,11 +19,6 @@ defmodule TimeManagerWeb.UserController do
   #  end
   #end
 
-  def index(conn, %{"username" => username, "email" => email}) do
-    user = Users.get_by(username, email)
-    render(conn, :index, user: user)
-  end
-
   def index(conn, _params) do
     users = Users.list_users()
     render(conn, :index, users: users)
@@ -39,7 +34,14 @@ defmodule TimeManagerWeb.UserController do
   end
 
   def show(conn, %{"userID" => id}) do
-    user = Users.get_user!(id)
+    case Users.get_by_id(id) do 
+      { :ok, %User{} = user } -> render(conn, :references_show, user: user)
+      _ -> render(conn, :error, message: "User not found")
+    end
+  end
+
+  def show(conn, %{"username" => username, "email" => email}) do
+    user = Users.get_by(username, email)
     render(conn, :show, user: user)
   end
 

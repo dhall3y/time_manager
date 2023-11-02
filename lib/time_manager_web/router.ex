@@ -13,18 +13,19 @@ defmodule TimeManagerWeb.Router do
   end
 
   scope "/api", TimeManagerWeb do
-    pipe_through [:api, :csrf]
+    pipe_through [:api]
+    # commented to remove csrf protection pipe_through [:api, :csrf]
 
     resources "/users", UserController, param: "userID", except: [:new, :edit]
     post "/users/sign_up", AuthController, :sign_up
     post "/users/sign_out", AuthController, :sign_out 
   
-    #post "/workingtimes/:userID", WorkingTimeController, :create
     resources "/workingtimes/:userID", WorkingTimeController, only: [:index, :create, :show]
     resources "/workingtimes", WorkingTimeController, only: [:delete, :update]
 
+    resources "/chartmanager/:userID", ChartManagerController, only: [:show]
+
     resources "/clocks/:userID", ClockController, only: [:index, :create]
-    
   end
 
   scope "/api", TimeManagerWeb do

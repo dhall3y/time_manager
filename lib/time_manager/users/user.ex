@@ -1,4 +1,6 @@
 defmodule TimeManager.Users.User do
+  alias TimeManager.WorkingTimes.WorkingTime
+  alias TimeManager.Clocks.Clock
   use Ecto.Schema
   import Ecto.Changeset
 
@@ -6,6 +8,8 @@ defmodule TimeManager.Users.User do
     field :username, :string
     field :email, :string
     field :password, :string
+    has_many :workingtimes, WorkingTime
+    has_one :clocks, Clock
 
     timestamps(type: :utc_datetime)
   end

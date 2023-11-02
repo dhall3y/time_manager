@@ -8,9 +8,8 @@ defmodule TimeManagerWeb.AuthController do
   action_fallback TimeManagerWeb.FallbackController
 
   def sign_in(conn, %{"email" => email, "password" => password}) do
-    IO.inspect("test")
     case Users.get_by_email(email) do
-      %User{} = user -> 
+      {:ok, %User{} = user} -> 
         case Bcrypt.verify_pass(password, user.password) do
           true ->
             csrf_token = get_session(conn, :csrf_token)
@@ -28,7 +27,6 @@ defmodule TimeManagerWeb.AuthController do
               "csrf_token" => csrf_token,
               "exp" => System.system_time(:second) + 30 * 24 * 60 * 60
             }
-            IO.inspect(csrf_token)
             {:ok, token, _claims} = JWTToken.generate_and_sign(extra_claims, signer)
             render(conn, :auth, user: user, token: token)
           false -> 

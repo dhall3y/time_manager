@@ -4,8 +4,8 @@ defmodule TimeManager.Users do
   """
 
   import Ecto.Query, warn: false
+  alias Hex.API.User
   alias TimeManager.Repo
-
   alias TimeManager.Users.User
 
   @doc """
@@ -42,9 +42,51 @@ defmodule TimeManager.Users do
     get user by email
   """
   def get_by_email(email) do
-    User
-    |> where(email: ^email)
-    |> Repo.one()
+    user =
+      User
+      |> where(email: ^email)
+      |> Repo.one()
+      |> Repo.preload([:workingtimes, :clocks])
+
+    filter_workingtimes(user)
+  end
+
+  def get_by_id(id) do
+    user =
+      User
+      |> where(id: ^id)
+      |> Repo.one()
+      |> Repo.preload([:workingtimes, :clocks])
+
+    filter_workingtimes(user)
+  end
+
+  defp filter_workingtimes(user) do
+    case user do
+      nil -> {}
+      user -> 
+          {start_of_week, end_of_week} = find_current_week()
+
+          user_with_working_time =
+            %User{
+              user |
+              workingtimes: Enum.filter(user.workingtimes, fn workingtime -> 
+                Date.compare(workingtime.start, start_of_week) != :lt and
+                Date.compare(workingtime.end, end_of_week) != :gt
+              end) 
+            }
+        {:ok, user_with_working_time}
+    end
+  end
+
+  defp find_current_week() do
+    {current_date, _ }  = :calendar.universal_time()
+
+    {_, today} = Date.from_erl(current_date)
+
+    start_of_week = Date.beginning_of_week(today, :sunday)
+    end_of_week = Date.end_of_week(today, :sunday)
+    {start_of_week, end_of_week}
   end
 
   @doc """
