@@ -1,6 +1,8 @@
 version: '3'
 services:
   back:
+    volumes:
+      - .:/app
     container_name: back-time-manager
     build: .
     env_file:
@@ -10,14 +12,12 @@ services:
     depends_on:
       - db
     command: /app/entrypoint.sh
-    volumes:
-      - .:/app
   db:
     image: postgres:latest
     container_name: db-time-manager
     ports:
     - "5432:5432"
     environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
-      POSTGRES_DB: time_manager_dev
+      POSTGRES_USER: ${PGUSER}
+      POSTGRES_PASSWORD: ${PGPASSWORD}
+      POSTGRES_DB: ${PGDATABASE}
