@@ -3,13 +3,14 @@ defmodule TimeManager.Repo.Migrations.CreateClocks do
 
   def change do
     create table(:clocks) do
-      add :time, :naive_datetime
-      add :status, :boolean, default: true, null: false
+      add :start, :naive_datetime
+      add :end, :naive_datetime
+      add :status, :boolean, default: false, null: false
       add :user_id, references(:users, on_delete: :delete_all)
 
       timestamps(type: :utc_datetime)
     end
 
-    create unique_index(:clocks, [:user_id])
+    create index(:clocks, [:user_id])
   end
 end

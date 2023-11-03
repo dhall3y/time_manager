@@ -65,17 +65,31 @@ defmodule TimeManager.Users do
     case user do
       nil -> {}
       user -> 
-          {start_of_week, end_of_week} = find_current_week()
+          { start_of_week, end_of_week } = find_current_week()
 
-          user_with_working_time =
+          user_with_weekly_time =
             %User{
               user |
-              workingtimes: Enum.filter(user.workingtimes, fn workingtime -> 
-                Date.compare(workingtime.start, start_of_week) != :lt and
-                Date.compare(workingtime.end, end_of_week) != :gt
-              end) 
+              workingtimes: 
+                case user.workingtimes do
+                  nil -> []
+                  workingtimes -> 
+                    Enum.filter(user.workingtimes, fn workingtime -> 
+                      Date.compare(workingtime.start, start_of_week) != :lt and
+                      Date.compare(workingtime.end, end_of_week) != :gt
+                    end)
+                end,
+              clocks:
+                case user.clocks do
+                  nil -> []
+                  clocks -> 
+                    Enum.filter(user.clocks, fn clock ->   
+                      Date.compare(clock.start, start_of_week)  != :lt and
+                      Date.compare(clock.end, end_of_week) != :gt
+                    end)
+                end
             }
-        {:ok, user_with_working_time}
+        {:ok, user_with_weekly_time}
     end
   end
 
@@ -86,7 +100,7 @@ defmodule TimeManager.Users do
 
     start_of_week = Date.beginning_of_week(today, :sunday)
     end_of_week = Date.end_of_week(today, :sunday)
-    {start_of_week, end_of_week}
+    { start_of_week, end_of_week }
   end
 
   @doc """

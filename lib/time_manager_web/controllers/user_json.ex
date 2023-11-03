@@ -24,8 +24,12 @@ defmodule TimeManagerWeb.UserJSON do
   end
 
 
-  defp workingtime_data(workingtimes) do
+  defp workingtimes_data(workingtimes) do
       for(workingtime <- workingtimes, do: %{start: workingtime.start, end: workingtime.end})
+  end
+
+  defp clocks_data(clocks) do
+      for(clock <- clocks, do: %{start: clock.start, end: clock.end, status: clock.status})
   end
 
   defp references_data(%User{} = user) do
@@ -33,11 +37,12 @@ defmodule TimeManagerWeb.UserJSON do
       id: user.id,
       username: user.username,
       email: user.email,
-      workingtimes: workingtime_data(user.workingtimes),
-      clock: %{
-        time: user.clocks.time,
-        status: user.clocks.status
-      }
+      role: user.role,
+      manager_id: user.manager_id,
+      teams_id: user.teams_id,
+      managed_teams: user.managed_teams,
+      workingtimes: workingtimes_data(user.workingtimes),
+      clocks: clocks_data(user.clocks)
     }
   end
 

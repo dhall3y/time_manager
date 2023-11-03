@@ -8,6 +8,10 @@ defmodule TimeManager.Users.User do
     field :username, :string
     field :email, :string
     field :password, :string
+    field :role, :string
+    field :manager_id, :integer
+    field :teams_id, {:array, :integer}
+    field :managed_teams, {:array, :integer}
     has_many :workingtimes, WorkingTime
     has_one :clocks, Clock
 
@@ -17,7 +21,7 @@ defmodule TimeManager.Users.User do
   @doc false
   def changeset(user, attrs) do
     user
-    |> cast(attrs, [:username, :email, :password])
+    |> cast(attrs, [:username, :email, :password, :role, :manager_id, :teams_id, :managed_teams])
     |> validate_required([:username, :email, :password])
     |> unique_constraint(:email)
     |> unique_constraint(:username)
